@@ -1,0 +1,8 @@
+dependencies:
+- name: echarts
+  version: 3.1.7
+  src: htmlwidgets/lib/echarts
+  script:
+    - echarts.min.js
+    - macarons.js
+    - map.js
