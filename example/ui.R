@@ -1,5 +1,5 @@
 library(shinydashboard)
-library(echarts)
+library(Recharts)
 body <- dashboardBody(
   fluidRow(
     column(6,EplotOutput("data_line_bar_1")),

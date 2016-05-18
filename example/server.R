@@ -1,4 +1,4 @@
-library(echarts)
+library(Recharts)
 library(jsonlite)
 shinyServer(
   function(input,output,session){
