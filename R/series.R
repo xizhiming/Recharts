@@ -5,7 +5,6 @@ series_rectangular <- function(data,type,itemStyle=FALSE){
   data <- as.list(data)
   if(length(type)==1){type <- rep(type,length(data))}
   for(i in seq(length(data))){
-    #加一个0是为了保证当只有一列的时候，转jason的时候可以带上[]方括号
     data[[i]] <- list(name=unbox(list_name[i]),type=unbox(type[i]),data=data[[i]],
                       itemStyle=list(normal=list(label=list(show=unbox(itemStyle),formatter=unbox('{c}')))))
   }

@@ -12,14 +12,14 @@ Eplot <- function(data,type,width=NULL,height=NULL,
   if(type%in%c("line","bar")){
     tooltip.formatter <- unbox("{b}:{c}")
   }else if(type=="pie"){
-    tooltip.formatter <- unbox("{b}:{c}({d}%)") 
+    tooltip.formatter <- unbox("{b}:{c}({d}%)")
   }else if(type=="funnel"){
-    tooltip.formatter <- unbox("{b}:{c}%") 
+    tooltip.formatter <- unbox("{b}:{c}%")
   }else if(type=="map"){
     tooltip.formatter <- unbox("{b}:{c}")
   }
   x$tooltip <- list(show=unbox(TRUE),trigger=unbox('item'),formatter=tooltip.formatter)
-  
+
   if(type%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
                      orient=unbox('horizontal'),x=unbox('center'),y=unbox('top'))
@@ -49,14 +49,14 @@ Eplot <- function(data,type,width=NULL,height=NULL,
     x$series <- series_map(data=data,mapType=mapType)
   }
   x <- jsonlite::toJSON(x)
-  
+
   # create widget
   htmlwidgets::createWidget(
     name = 'Eplot',
     x,
     width = width,
     height = height,
-    package = 'echarts'
+    package = 'Recharts'
   )
 }
 
