@@ -5,11 +5,15 @@
 #' @import htmlwidgets
 #'
 #' @export
-Eplot <- function(data,type,width=NULL,height=NULL,
+Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                   series_rectangular_itemStyle=FALSE,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
   x <- list()
+  if(!is.null(title)){
+    x$title <- list(text=title,x=unbox('center'))
+  }
+
   if(type%in%c("line","bar")){
     tooltip.formatter <- unbox("{b}:{c}")
   }else if(type=="pie"){
@@ -23,7 +27,7 @@ Eplot <- function(data,type,width=NULL,height=NULL,
 
   if(type%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
-                     orient=unbox('horizontal'),x=unbox('center'),y=unbox('top'))
+                     orient=unbox('horizontal'),x=unbox('center'),y=unbox('30'))
     x$toolbox <- list(show=unbox("true"),
                       orient=unbox("vertical"),
                       feature=list(
