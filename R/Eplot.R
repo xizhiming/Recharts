@@ -5,7 +5,7 @@
 #' @import htmlwidgets
 #'
 #' @export
-Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
+Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,tooltip.trigger='item',
                   series_rectangular_itemStyle=FALSE,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
@@ -23,7 +23,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
   }else if(type=="map"){
     tooltip.formatter <- unbox("{b}:{c}")
   }
-  x$tooltip <- list(show=unbox(TRUE),trigger=unbox('item'),formatter=tooltip.formatter)
+  x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger),formatter=tooltip.formatter)
 
   if(type%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
