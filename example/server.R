@@ -25,7 +25,7 @@ shinyServer(
     data_map_BJ <- data.frame("黄浦区"=120,"浦东新区"=300)
 
     output$data_line_bar_1 <- renderEplot({
-      Eplot(type="line",data=data_line_bar,title="标题")
+      Eplot(type="line",data=data_line_bar,title="标题",tooltip.trigger = 'axis')
     })
     output$data_line_bar_2 <- renderEplot({
       Eplot(type="bar",data=data_line_bar_2)

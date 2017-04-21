@@ -5,7 +5,8 @@
 #' @import htmlwidgets
 #'
 #' @export
-Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,tooltip.trigger='item',
+Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
+                  tooltip.trigger='item',
                   series_rectangular_itemStyle=FALSE,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
@@ -14,16 +15,19 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,tooltip.trigger='i
     x$title <- list(text=title,x=unbox('center'))
   }
 
-  if(type%in%c("line","bar")){
-    tooltip.formatter <- unbox("{b}:{c}")
-  }else if(type=="pie"){
-    tooltip.formatter <- unbox("{b}:{c}({d}%)")
-  }else if(type=="funnel"){
-    tooltip.formatter <- unbox("{b}:{c}%")
-  }else if(type=="map"){
-    tooltip.formatter <- unbox("{b}:{c}")
+  x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
+  # if(type%in%c("line","bar")){
+  #   tooltip.formatter <- unbox("{b}:{c}")
+  # }
+  if(type=="pie"){
+    x$tooltip$formatter <- unbox("{b}:{c}({d}%)")
   }
-  x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger),formatter=tooltip.formatter)
+  if(type=="funnel"){
+    x$tooltip$formatter <- unbox("{b}:{c}%")
+  }
+  if(type=="map"){
+    x$tooltip$formatter <- unbox("{b}:{c}")
+  }
 
   if(type%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
