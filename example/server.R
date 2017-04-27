@@ -3,8 +3,8 @@ library(jsonlite)
 shinyServer(
   function(input,output,session){
     data_line_bar <- data.frame('最高'=c(35,45,40,35,55),
-                                '中间'=c(25,35,30,25,45),
-                                '最低'=c(15,25,20,15,35))
+                                '中间'=c(2.5,3.5,3.0,2.5,4.5),
+                                '最低'=c(1.5,2.5,2.0,1.5,3.5))
     row.names(data_line_bar) <- c('3-1','3-2','3-3','3-4','3-5')
 
     data_line_bar_2 <- data.frame('最高'=c(35,45,40,35,55))
@@ -31,7 +31,9 @@ shinyServer(
     })
 
     output$data_line_bar_1 <- renderEplot({
-      Eplot(type="bar",data=data_line_bar,stack=c('1','test','test'),title="标题",tooltip.trigger = 'axis')
+      Eplot(type="bar",data=data_line_bar,
+            yAxisName=c('金额万','金额元'),yAxisIndex=c(0,1,1),
+            stack=c('1','test','test'),title="标题",tooltip.trigger = 'axis')
     })
 
     output$data_line_bar_2 <- renderEplot({

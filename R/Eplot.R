@@ -8,6 +8,7 @@
 Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                   tooltip.trigger='item',stack=NULL,
                   series_rectangular_itemStyle=FALSE,
+                  yAxisName='',yAxisIndex=0,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
   x <- list()
@@ -44,8 +45,14 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                          position=unbox("bottom"),
                          data=row.names(data))
     )
-    x$yAxis <- list(list(type=unbox("value"),position=unbox("left")))
-    x$series <- series_rectangular(data,type=type,stack=stack,itemStyle=series_rectangular_itemStyle)
+    x$yAxis <- as.list(yAxisName)
+    for(i in  seq(length(yAxisName))){
+      x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]))
+    }
+
+    x$series <- series_rectangular(data,type=type,stack=stack,
+                                   yAxisIndex=yAxisIndex,
+                                   itemStyle=series_rectangular_itemStyle)
   }else if(type=="pie"){
     x$series <- series_pie(data)
   }else if(type=="funnel"){
