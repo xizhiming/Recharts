@@ -20,17 +20,18 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
   # if(type%in%c("line","bar")){
   #   tooltip.formatter <- unbox("{b}:{c}")
   # }
-  if(type=="pie"){
+
+  if(type[1]=="pie"){
     x$tooltip$formatter <- unbox("{b}:{c}({d}%)")
   }
-  if(type=="funnel"){
+  if(type[1]=="funnel"){
     x$tooltip$formatter <- unbox("{b}:{c}%")
   }
-  if(type=="map"){
+  if(type[1]=="map"){
     x$tooltip$formatter <- unbox("{b}:{c}")
   }
 
-  if(type%in%c("line","bar")){
+  if(type[1]%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
                      orient=unbox('horizontal'),x=unbox('center'),y=unbox('30'))
     x$toolbox <- list(show=unbox("true"),
@@ -53,11 +54,11 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
     x$series <- series_rectangular(data,type=type,stack=stack,
                                    yAxisIndex=yAxisIndex,
                                    itemStyle=series_rectangular_itemStyle)
-  }else if(type=="pie"){
+  }else if(type[1]=="pie"){
     x$series <- series_pie(data)
-  }else if(type=="funnel"){
+  }else if(type[1]=="funnel"){
     x$series <- series_funnel(data)
-  }else if(type=="map"){
+  }else if(type[1]=="map"){
     x$visualMap <- list(show=unbox(visualMap_show),
                         min=unbox(visualMap_min),max=unbox(visualMap_max),
                         left=unbox('left'),top=unbox('bottom'),
