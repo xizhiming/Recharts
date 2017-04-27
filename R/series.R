@@ -1,13 +1,19 @@
 #折线图、柱状图
-series_rectangular <- function(data,type,itemStyle=FALSE){
+series_rectangular <- function(data,type,stack,itemStyle=FALSE){
   list_name <- colnames(data)
   colnames(data) <- NULL
   data <- as.list(data)
   if(length(type)==1){type <- rep(type,length(data))}
+  if(length(stack)==0){
+    stack <- rep('',length(data))
+  }else if(length(stack)==1){
+    stack <- rep(stack,length(data))
+    }
   for(i in seq(length(data))){
-    data[[i]] <- list(name=unbox(list_name[i]),type=unbox(type[i]),data=data[[i]],
+    data[[i]] <- list(name=unbox(list_name[i]),type=unbox(type[i]),stack=unbox(stack[i]),data=data[[i]],
                       itemStyle=list(normal=list(label=list(show=unbox(itemStyle),formatter=unbox('{c}')))))
   }
+
   return(data)
 }
 #饼图

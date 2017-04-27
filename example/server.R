@@ -24,9 +24,16 @@ shinyServer(
     data_map_china <- data.frame("上海"=1200,"北京"=500)
     data_map_BJ <- data.frame("黄浦区"=120,"浦东新区"=300)
 
+    # 堆叠柱形图
+
     output$data_line_bar_1 <- renderEplot({
       Eplot(type="line",data=data_line_bar,title="标题",tooltip.trigger = 'axis')
     })
+
+    output$data_line_bar_1 <- renderEplot({
+      Eplot(type="bar",data=data_line_bar,stack=c('1','test','test'),title="标题",tooltip.trigger = 'axis')
+    })
+
     output$data_line_bar_2 <- renderEplot({
       Eplot(type="bar",data=data_line_bar_2)
     })

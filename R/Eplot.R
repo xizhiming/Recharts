@@ -6,7 +6,7 @@
 #'
 #' @export
 Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
-                  tooltip.trigger='item',
+                  tooltip.trigger='item',stack=NULL,
                   series_rectangular_itemStyle=FALSE,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
@@ -45,7 +45,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                          data=row.names(data))
     )
     x$yAxis <- list(list(type=unbox("value"),position=unbox("left")))
-    x$series <- series_rectangular(data,type=type,itemStyle=series_rectangular_itemStyle)
+    x$series <- series_rectangular(data,type=type,stack=stack,itemStyle=series_rectangular_itemStyle)
   }else if(type=="pie"){
     x$series <- series_pie(data)
   }else if(type=="funnel"){
