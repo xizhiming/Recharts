@@ -6,9 +6,10 @@
 #'
 #' @export
 Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
-                  tooltip.trigger='item',stack=NULL,
+                  tooltip.trigger='item',
                   series_rectangular_itemStyle=FALSE,
-                  yAxisName='',yAxisIndex=0,
+                  legend_show=NULL,
+                  yAxisName='',yAxisIndex=0,stack=NULL,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
   x <- list()
@@ -34,12 +35,23 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
   if(type[1]%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
                      orient=unbox('horizontal'),x=unbox('center'),y=unbox('30'))
-    x$toolbox <- list(show=unbox("true"),
+    if(length(legend_show)!=0){
+      x$legend$selected <- list()
+      for(i in seq(ncol(data))){
+        if(colnames(data)[i]%in%legend_show){
+          x$legend$selected[[i]] <- unbox(TRUE)
+        }else{
+          x$legend$selected[[i]] <- unbox(FALSE)
+        }
+      }
+      names(x$legend$selected) <- colnames(data)
+    }
+    x$toolbox <- list(show=unbox(TRUE),
                       orient=unbox("vertical"),
                       feature=list(
-                        restore=list(show=unbox("true")),
-                        magicType=list(show=unbox("true"),type=c('line', 'bar')),
-                        saveAsImage=list(show=unbox("true"))
+                        restore=list(show=unbox(TRUE)),
+                        magicType=list(show=unbox(TRUE),type=c('line', 'bar')),
+                        saveAsImage=list(show=unbox(TRUE))
                       ))
     x$xAxis <- list(list(type=unbox("category"),
                          boundaryGap=unbox('false'),

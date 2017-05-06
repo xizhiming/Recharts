@@ -27,13 +27,21 @@ shinyServer(
     # 堆叠柱形图
 
     output$data_line_bar_1 <- renderEplot({
-      Eplot(type="line",data=data_line_bar,title="标题",tooltip.trigger = 'axis')
+      Eplot(type="line",data=data_line_bar,
+            title="标题",
+            tooltip.trigger = 'axis',
+            legend_show=c("最高","最低"), #  是否只显示指定的几条折线
+            series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
+            )
     })
 
     output$data_line_bar_1 <- renderEplot({
       Eplot(type="bar",data=data_line_bar,
-            yAxisName=c('金额万','金额元'),yAxisIndex=c(0,1,1),
-            stack=c('1','test','test'),title="标题",tooltip.trigger = 'axis')
+            yAxisName=c('金额万','金额元'), # y轴的名称
+            yAxisIndex=c(0,1,1), # 0为左侧坐标轴，1为右侧
+            stack=c('1','test','test'), # 是否使用堆积图，名字相同的堆积在一起
+            title="标题",
+            tooltip.trigger = 'axis')
     })
 
     output$data_line_bar_2 <- renderEplot({
