@@ -29,13 +29,14 @@ shinyServer(
     output$data_line_bar_1 <- renderEplot({
       Eplot(type="line",data=data_line_bar,
             title="标题",
+            yAxisMin=10,
             tooltip.trigger = 'axis',
             legend_show=c("最高","最低"), #  是否只显示指定的几条折线
             series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
             )
     })
 
-    output$data_line_bar_1 <- renderEplot({
+    output$data_line_bar_2 <- renderEplot({
       Eplot(type="bar",data=data_line_bar,
             yAxisName=c('金额万','金额元'), # y轴的名称
             yAxisIndex=c(0,1,1), # 0为左侧坐标轴，1为右侧
@@ -44,8 +45,8 @@ shinyServer(
             tooltip.trigger = 'axis')
     })
 
-    output$data_line_bar_2 <- renderEplot({
-      Eplot(type="bar",data=data_line_bar_2)
+    output$data_line_bar_3 <- renderEplot({
+      Eplot(type="bar",data=data_line_bar_2,yAxisMin=10)
     })
     output$data_pie <- renderEplot({
       Eplot(type="pie",data=data_pie)

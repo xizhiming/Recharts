@@ -2,8 +2,9 @@ library(shinydashboard)
 library(Recharts)
 body <- dashboardBody(
   fluidRow(
-    column(6,EplotOutput("data_line_bar_1")),
-    column(6,EplotOutput("data_line_bar_2"))
+    column(4,EplotOutput("data_line_bar_1")),
+    column(4,EplotOutput("data_line_bar_2")),
+    column(4,EplotOutput("data_line_bar_3"))
   ),
   fluidRow(
     column(6,EplotOutput("data_pie")),

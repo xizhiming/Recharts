@@ -9,7 +9,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                   tooltip.trigger='item',
                   series_rectangular_itemStyle=FALSE,
                   legend_show=NULL,
-                  yAxisName='',yAxisIndex=0,stack=NULL,
+                  yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
   x <- list()
@@ -62,7 +62,9 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
     for(i in  seq(length(yAxisName))){
       x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]))
     }
-
+    if(!is.null(yAxisMin)){
+      x$yAxis$min <- unbox(yAxisMin)
+    }
     x$series <- series_rectangular(data,type=type,stack=stack,
                                    yAxisIndex=yAxisIndex,
                                    itemStyle=series_rectangular_itemStyle)
