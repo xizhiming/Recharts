@@ -14,7 +14,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
 ){
   x <- list()
   if(!is.null(title)){
-    x$title <- list(text=title,x=unbox('center'))
+    x$title <- list(text=title,x=unbox('center'),y=unbox('-5'))
   }
 
   x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
@@ -34,7 +34,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
 
   if(type[1]%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
-                     orient=unbox('horizontal'),x=unbox('center'),y=unbox('15'))
+                     orient=unbox('horizontal'),x=unbox('center'),y=unbox('20'))
     if(length(legend_show)!=0){
       x$legend$selected <- list()
       for(i in seq(ncol(data))){
