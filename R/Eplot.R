@@ -108,7 +108,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
 #' @name Eplot-shiny
 #'
 #' @export
-EplotOutput <- function(outputId, width = '100%', height = '400px'){
+EplotOutput <- function(outputId, width = '100%', height = '500px'){
   htmlwidgets::shinyWidgetOutput(outputId, 'Eplot', width, height, package = 'Recharts')
 }
 
