@@ -46,7 +46,7 @@ shinyServer(
     })
 
     output$data_line_bar_3 <- renderEplot({
-      Eplot(type="bar",data=data_line_bar_2,yAxisMin=10)
+      Eplot(type="bar",data=data_line_bar_2,yAxisMin=20)
     })
     output$data_pie <- renderEplot({
       Eplot(type="pie",data=data_pie)
