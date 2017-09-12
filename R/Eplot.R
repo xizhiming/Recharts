@@ -7,6 +7,7 @@
 #' @export
 Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                   tooltip.trigger='item',
+                  tooltip.formatter=NULL,
                   series_rectangular_itemStyle=FALSE,
                   legend_show=NULL,
                   yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
@@ -16,22 +17,21 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
   if(!is.null(title)){
     x$title <- list(text=title,x=unbox('center'),y=unbox('-5'))
   }
-
+  
   x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
   # if(type%in%c("line","bar")){
   #   tooltip.formatter <- unbox("{b}:{c}")
   # }
-
-  if(type[1]=="pie"){
+  if(!is.null(tooltip.formatter)){
+    x$tooltip$formatter <- tooltip.formatter
+  }else if(type[1]=="pie"){
     x$tooltip$formatter <- unbox("{b}:{c}({d}%)")
-  }
-  if(type[1]=="funnel"){
+  }else if(type[1]=="funnel"){
     x$tooltip$formatter <- unbox("{b}:{c}%")
-  }
-  if(type[1]=="map"){
+  }else if(type[1]=="map"){
     x$tooltip$formatter <- unbox("{b}:{c}")
   }
-
+  
   if(type[1]%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
                      orient=unbox('horizontal'),x=unbox('center'),y=unbox('20'))
@@ -80,7 +80,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
     x$series <- series_map(data=data,mapType=mapType)
   }
   x <- jsonlite::toJSON(x)
-
+  
   # create widget
   htmlwidgets::createWidget(
     name = 'Eplot',
