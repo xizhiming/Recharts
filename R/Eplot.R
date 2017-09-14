@@ -17,13 +17,13 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
   if(!is.null(title)){
     x$title <- list(text=title,x=unbox('center'),y=unbox('-5'))
   }
-  
+
   x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
   # if(type%in%c("line","bar")){
   #   tooltip.formatter <- unbox("{b}:{c}")
   # }
   if(!is.null(tooltip.formatter)){
-    x$tooltip$formatter <- tooltip.formatter
+    x$tooltip$formatter <- unbox(tooltip.formatter)
   }else if(type[1]=="pie"){
     x$tooltip$formatter <- unbox("{b}:{c}({d}%)")
   }else if(type[1]=="funnel"){
@@ -31,7 +31,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
   }else if(type[1]=="map"){
     x$tooltip$formatter <- unbox("{b}:{c}")
   }
-  
+
   if(type[1]%in%c("line","bar")){
     x$legend <- list(data=colnames(data),
                      orient=unbox('horizontal'),x=unbox('center'),y=unbox('20'))
@@ -72,15 +72,34 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
     x$series <- series_pie(data)
   }else if(type[1]=="funnel"){
     x$series <- series_funnel(data)
+    x$toolbox <- list(show=unbox(TRUE),
+                      orient=unbox("vertical"),
+                      feature=list(
+                        restore=list(show=unbox(TRUE)),
+                        saveAsImage=list(show=unbox(TRUE))
+                      ))
   }else if(type[1]=="map"){
     x$visualMap <- list(show=unbox(visualMap_show),
                         min=unbox(visualMap_min),max=unbox(visualMap_max),
                         left=unbox('left'),top=unbox('bottom'),
                         text=c("max","min"),calculable=unbox(TRUE))
     x$series <- series_map(data=data,mapType=mapType)
+    x$toolbox <- list(show=unbox(TRUE),
+                      orient=unbox("vertical"),
+                      feature=list(
+                        restore=list(show=unbox(TRUE)),
+                        saveAsImage=list(show=unbox(TRUE))
+                      ))
+  }else if(type[1]=="pie"){
+    x$toolbox <- list(show=unbox(TRUE),
+                      orient=unbox("vertical"),
+                      feature=list(
+                        restore=list(show=unbox(TRUE)),
+                        saveAsImage=list(show=unbox(TRUE))
+                      ))
   }
   x <- jsonlite::toJSON(x)
-  
+
   # create widget
   htmlwidgets::createWidget(
     name = 'Eplot',

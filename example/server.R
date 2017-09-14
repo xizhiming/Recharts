@@ -49,7 +49,7 @@ shinyServer(
       Eplot(type="bar",data=data_line_bar_2,yAxisMin=20)
     })
     output$data_pie <- renderEplot({
-      Eplot(type="pie",data=data_pie)
+      Eplot(type="pie",data=data_pie,tooltip.formatter = "{b}:{c}万({d}%)")
     })
     output$data_funnel <- renderEplot({
       Eplot(type="funnel",data=data_funnel)

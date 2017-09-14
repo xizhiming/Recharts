@@ -28,7 +28,7 @@ series_pie <- function(data,type='pie',radius='55%'){
   for(i in seq(length(data))){
     data[[i]] <- list(name=unbox(list_name[i]),value=data[[i]])
   }
-  data=list(list(type=unbox('pie'),radius=unbox('55%'),data=data))
+  data=list(list(type=unbox('pie'),radius=unbox('65%'),data=data))
   return(data)
 }
 #地图
@@ -46,7 +46,7 @@ series_map <- function(data,mapType,itemStyle.normal=FALSE,itemStyle.emphasis=FA
   return(data)
 }
 #漏斗图
-series_funnel <- function(data,type='funnel', sort='descending',gap=3,width='100%',x=0,y=0){
+series_funnel <- function(data,type='funnel', sort='descending',gap=3,width='92%',x=0,y=0){
   list_name <- colnames(data)
   colnames(data) <- NULL
   data <- as.list(data)
