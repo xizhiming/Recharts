@@ -70,6 +70,12 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                                    itemStyle=series_rectangular_itemStyle)
   }else if(type[1]=="pie"){
     x$series <- series_pie(data)
+    x$toolbox <- list(show=unbox(TRUE),
+                      orient=unbox("vertical"),
+                      feature=list(
+                        restore=list(show=unbox(TRUE)),
+                        saveAsImage=list(show=unbox(TRUE))
+                      ))
   }else if(type[1]=="funnel"){
     x$series <- series_funnel(data)
     x$toolbox <- list(show=unbox(TRUE),
@@ -84,13 +90,6 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                         left=unbox('left'),top=unbox('bottom'),
                         text=c("max","min"),calculable=unbox(TRUE))
     x$series <- series_map(data=data,mapType=mapType)
-    x$toolbox <- list(show=unbox(TRUE),
-                      orient=unbox("vertical"),
-                      feature=list(
-                        restore=list(show=unbox(TRUE)),
-                        saveAsImage=list(show=unbox(TRUE))
-                      ))
-  }else if(type[1]=="pie"){
     x$toolbox <- list(show=unbox(TRUE),
                       orient=unbox("vertical"),
                       feature=list(
