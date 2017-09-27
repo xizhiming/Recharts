@@ -54,6 +54,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                         saveAsImage=list(show=unbox(TRUE))
                       ))
     x$xAxis <- list(list(type=unbox("category"),
+                         axisLabel=list(interval=0,rotate=-90),
                          boundaryGap=unbox('false'),
                          position=unbox("bottom"),
                          data=row.names(data))
