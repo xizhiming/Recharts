@@ -29,6 +29,7 @@ shinyServer(
     output$data_line_bar_1 <- renderEplot({
       Eplot(type="line",data=data_line_bar,
             title="标题",
+            xAxisAll = TRUE,
             yAxisMin=10,
             tooltip.trigger = 'axis',
             legend_show=c("最高","最低"), #  是否只显示指定的几条折线

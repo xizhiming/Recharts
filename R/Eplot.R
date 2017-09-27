@@ -10,6 +10,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                   tooltip.formatter=NULL,
                   series_rectangular_itemStyle=FALSE,
                   legend_show=NULL,
+                  xAxisAll=FALSE,
                   yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
 ){
@@ -54,11 +55,13 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                         saveAsImage=list(show=unbox(TRUE))
                       ))
     x$xAxis <- list(list(type=unbox("category"),
-                         axisLabel=list(interval=0,rotate=-45),
                          boundaryGap=unbox('false'),
                          position=unbox("bottom"),
                          data=row.names(data))
     )
+    if(xAxisAll==TRUE){
+      x$xAxis[[1]]$axisLabel <- list(interval=0,rotate=-45)
+    }
     x$yAxis <- as.list(yAxisName)
     for(i in  seq(length(yAxisName))){
       x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]))
