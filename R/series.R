@@ -59,3 +59,15 @@ series_funnel <- function(data,type='funnel', sort='descending',gap=3,width='92%
   ))
   return(data)
 }
+#散点图
+# data <- data.frame(a=c(100,89,110,90,150),b=c(0.1,0.2,0.15,0.3,0.4),c=c("a","b","c","d","e"))
+series_scatter <- function(data,mapType){
+  data <- as.matrix(data)
+  colnames(data) <- NULL
+  new_data <- list()
+  for(i in 1:nrow(data)){
+    new_data[[i]] <- data[i,]
+  }
+  new_data <- list(list(type=unbox(mapType),data=new_data))
+  return(new_data)
+}

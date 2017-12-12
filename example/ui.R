@@ -13,6 +13,9 @@ body <- dashboardBody(
   fluidRow(
     column(6,EplotOutput("data_map_china")),
     column(6,EplotOutput("data_map_BJ"))
+  ),
+  fluidRow(
+    column(6,EplotOutput("data_map_scatter"))
   )
 )
 shinyUI(

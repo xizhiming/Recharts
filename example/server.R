@@ -23,6 +23,7 @@ shinyServer(
     #地图数据
     data_map_china <- data.frame("上海"=1200,"北京"=500)
     data_map_BJ <- data.frame("黄浦区"=120,"浦东新区"=300)
+    data_scatter <- data.frame(a=c(100,89,110,90,150),b=c(0.1,0.2,0.15,0.3,0.4),c=c("a","b","c","d","e"))
 
     # 堆叠柱形图
 
@@ -65,5 +66,9 @@ shinyServer(
       Eplot(type="map",data=data_map_BJ,
             mapType="上海",visualMap_max=150
       )
+    })
+
+    output$data_map_scatter <- renderEplot({
+      Eplot(type="scatter",data=data_scatter,scatter_x = "x轴",scatter_y = "y轴")
     })
   })

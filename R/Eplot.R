@@ -12,25 +12,24 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                   legend_show=NULL,
                   xAxisAll=FALSE,
                   yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
-                  visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType
+                  visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType,
+                  scatter_x=NULL,scatter_y=NULL
 ){
   x <- list()
   if(!is.null(title)){
     x$title <- list(text=title,x=unbox('center'),y=unbox('-5'))
   }
-
-  x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
-  # if(type%in%c("line","bar")){
-  #   tooltip.formatter <- unbox("{b}:{c}")
-  # }
-  if(!is.null(tooltip.formatter)){
-    x$tooltip$formatter <- unbox(tooltip.formatter)
-  }else if(type[1]=="pie"){
-    x$tooltip$formatter <- unbox("{b}:{c}({d}%)")
-  }else if(type[1]=="funnel"){
-    x$tooltip$formatter <- unbox("{b}:{c}%")
-  }else if(type[1]=="map"){
-    x$tooltip$formatter <- unbox("{b}:{c}")
+  if(type != 'scatter'){
+    x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
+    if(!is.null(tooltip.formatter)){
+      x$tooltip$formatter <- unbox(tooltip.formatter)
+    }else if(type[1]=="pie"){
+      x$tooltip$formatter <- unbox("{b}:{c}({d}%)")
+    }else if(type[1]=="funnel"){
+      x$tooltip$formatter <- unbox("{b}:{c}%")
+    }else if(type[1]=="map"){
+      x$tooltip$formatter <- unbox("{b}:{c}")
+    }
   }
 
   if(type[1]%in%c("line","bar")){
@@ -100,8 +99,18 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                         restore=list(show=unbox(TRUE)),
                         saveAsImage=list(show=unbox(TRUE))
                       ))
+  }else if(type[1]=="scatter"){
+    x$series <- series_scatter(data,mapType="scatter")
+    x$xAxis <- list(type=unbox('value'),splitLine=list(show=unbox(FALSE)))
+    x$yAxis <- list(type=unbox('value'),splitLine=list(show=unbox(FALSE)))
+    # x$tooltip <- list(formatter=unbox(123456789))
+    scatter_fun <- paste(sep="","function (obj) {var value = obj.value;return value[2] + '<br>' + '",scatter_x,"：' +  value[0] + '<br>' + '",scatter_y,"：'+ value[1];}")
+    x$tooltip <- list(formatter=htmlwidgets::JS(scatter_fun))
   }
-  x <- jsonlite::toJSON(x)
+
+  if(type[1]!="scatter"){
+    x <- jsonlite::toJSON(x)
+  }
 
   # create widget
   htmlwidgets::createWidget(
