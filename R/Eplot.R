@@ -59,7 +59,7 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
                          data=row.names(data))
     )
     if(xAxisAll==TRUE){
-      x$xAxis[[1]]$axisLabel <- list(interval=0,rotate=-45)
+      x$xAxis[[1]]$axisLabel <- list(interval=0,rotate=25,minInterval=1)
     }
     x$yAxis <- as.list(yAxisName)
     for(i in  seq(length(yAxisName))){

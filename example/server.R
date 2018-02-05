@@ -16,11 +16,15 @@ shinyServer(
                            'REF'=234000000
     )
     #漏斗图数据
-    data_funnel <- data.frame('点击'=100,
-                              '下单'=50,
-                              '支付'=20,
-                              '收货'=19)
+    data_funnel <- data.frame('Application '=1676,
+                              '下单'=413,
+                              '支付'=199,
+                              '收货'=11)
     #地图数据
+    #data_map_china <- read.csv("/Users/brookxi/Desktop/a.csv",stringsAsFactors = FALSE,header = TRUE)
+    data_map_china <- t(data_map_china)
+    data_map_china <- data_map_china[2,]
+    
     data_map_china <- data.frame("上海"=1200,"北京"=500)
     data_map_BJ <- data.frame("黄浦区"=120,"浦东新区"=300)
     data_scatter <- data.frame(a=c(100,89,110,90,150),b=c(0.1,0.2,0.15,0.3,0.4),c=c("a","b","c","d","e"))
@@ -59,7 +63,7 @@ shinyServer(
 
     output$data_map_china <- renderEplot({
       Eplot(type="map",data=data_map_china,
-            mapType="china",visualMap_max=5000
+            mapType="china",visualMap_max=40
       )
     })
     output$data_map_BJ <- renderEplot({
