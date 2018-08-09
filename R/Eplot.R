@@ -10,7 +10,7 @@ Eplot <- function(data,type,title=NULL,
                   tooltip.trigger='item',
                   tooltip.formatter=NULL,
                   series_rectangular_itemStyle=FALSE,# 是否在图形上显示数据
-                  series_rectangular_position='inside',# 图形上显示数据的位置，/inside、top、bottom、left，right
+                  series_rectangular_position=NULL,# 图形上显示数据的位置，/inside、top、bottom、left，right
                   legend_show=NULL,
                   xAxisAll=FALSE, # 是否在 X 轴显示所有名称
                   yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
