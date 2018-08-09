@@ -5,15 +5,18 @@
 #' @import htmlwidgets
 #'
 #' @export
-Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
+Eplot <- function(data,type,title=NULL,
+                  width=NULL,height=NULL,
                   tooltip.trigger='item',
                   tooltip.formatter=NULL,
-                  series_rectangular_itemStyle=FALSE,
+                  series_rectangular_itemStyle=FALSE,# 是否在图形上显示数据
+                  series_rectangular_position='inside',# 图形上显示数据的位置，/inside、top、bottom、left，right
                   legend_show=NULL,
-                  xAxisAll=FALSE,
+                  xAxisAll=FALSE, # 是否在 X 轴显示所有名称
                   yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
-                  visualMap_show=FALSE,visualMap_min=0,visualMap_max,mapType,
-                  scatter_x=NULL,scatter_y=NULL
+                  visualMap_show=FALSE,visualMap_min=0,visualMap_max,
+                  mapType, # 地图，地区
+                  scatter_x=NULL,scatter_y=NULL # 散点图的 x轴、y 轴名字
 ){
   x <- list()
   if(!is.null(title)){
@@ -70,7 +73,8 @@ Eplot <- function(data,type,title=NULL,width=NULL,height=NULL,
     }
     x$series <- series_rectangular(data,type=type,stack=stack,
                                    yAxisIndex=yAxisIndex,
-                                   itemStyle=series_rectangular_itemStyle)
+                                   itemStyle=series_rectangular_itemStyle,
+                                   position=series_rectangular_position)
   }else if(type[1]=="pie"){
     x$series <- series_pie(data)
     x$toolbox <- list(show=unbox(TRUE),
