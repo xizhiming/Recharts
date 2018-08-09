@@ -1,5 +1,5 @@
 #折线图、柱状图
-series_rectangular <- function(data,type,stack,yAxisIndex,itemStyle=FALSE,position='inside'){
+series_rectangular <- function(data,type,stack,yAxisIndex,itemStyle=FALSE,position){
   list_name <- colnames(data)
   colnames(data) <- NULL
   data <- as.list(data)
