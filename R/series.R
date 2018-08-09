@@ -15,7 +15,10 @@ series_rectangular <- function(data,type,stack,yAxisIndex,itemStyle=FALSE,positi
                       stack=unbox(stack[i]),
                       yAxisIndex=unbox(yAxisIndex[i]),
                       data=data[[i]],
-                      itemStyle=list(normal=list(label=list(show=unbox(itemStyle),position=unbox(position),formatter=unbox('{c}')))))
+                      itemStyle=list(normal=list(label=list(show=unbox(itemStyle),formatter=unbox('{c}')))))
+    if(!is.null(position)){
+      data[[i]]$itemStyle$normal$label$position <- unbox(position)
+    }
   }
 
   return(data)
