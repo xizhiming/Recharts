@@ -4,10 +4,10 @@ shinyServer(
   function(input,output,session){
     data_line_bar <- data.frame('最高'=c(35,45,40,35,55,35,45,40,35,55),
                                 '中间'=c(2.5,3.5,3.0,2.5,4.5,2.5,3.5,3.0,2.5,4.5),
-                                '最低'=c(1.5,2.5,2.0,1.5,3.5,1.5,2.5,2.0,1.5,3.5))
+                                '最低'=c(-1.5,2.5,2.0,1.5,3.5,1.5,2.5,2.0,1.5,3.5))
     row.names(data_line_bar) <- c('3-13-13-13-1','3-23-23-2','3-3','3-4','3-5','3-6','3-7','3-8','3-9','3-10')
 
-    data_line_bar_2 <- data.frame('最高'=c(35,45,40,35,55))
+    data_line_bar_2 <- data.frame('最高'=c(-35,45,40,35,55))
     row.names(data_line_bar_2) <- c('3-1','3-2','3-3','3-4','3-5')
     #饼图数据
     data_pie <- data.frame('直接访问'=100000000,
@@ -21,19 +21,13 @@ shinyServer(
                               '支付'=199,
                               '收货'=11)
     #地图数据
-    #data_map_china <- read.csv("/Users/brookxi/Desktop/a.csv",stringsAsFactors = FALSE,header = TRUE)
-    data_map_china <- t(data_map_china)
-    data_map_china <- data_map_china[2,]
-    
     data_map_china <- data.frame("上海"=1200,"北京"=500)
     data_map_BJ <- data.frame("黄浦区"=120,"浦东新区"=300)
     data_scatter <- data.frame(a=c(100,89,110,90,150),b=c(0.1,0.2,0.15,0.3,0.4),c=c("a","b","c","d","e"))
 
-    # 堆叠柱形图
-
     output$data_line_bar_1 <- renderEplot({
       Eplot(type="line",data=data_line_bar,
-            title="标题",
+            title="折线图",
             xAxisAll = TRUE,
             yAxisMin=10,
             tooltip.trigger = 'axis',
@@ -46,16 +40,20 @@ shinyServer(
       Eplot(type="bar",data=data_line_bar,
             yAxisName=c('金额万','金额元'), # y轴的名称
             yAxisIndex=c(0,1,1), # 0为左侧坐标轴，1为右侧
+            series_rectangular_itemStyle=TRUE,
             stack=c('1','test','test'), # 是否使用堆积图，名字相同的堆积在一起
-            title="标题",
+            title="堆积柱形图",
             tooltip.trigger = 'axis')
     })
 
     output$data_line_bar_3 <- renderEplot({
-      Eplot(type="bar",data=data_line_bar_2,yAxisMin=20)
+      Eplot(title="柱形图",type="bar",data=data_line_bar_2,yAxisMin=20,
+            series_rectangular_itemStyle=TRUE,
+            series_rectangular_position='top'
+            )
     })
     output$data_pie <- renderEplot({
-      Eplot(type="pie",data=data_pie,tooltip.formatter = "{b}:{c}万({d}%)")
+      Eplot(title="饼图",type="pie",data=data_pie,tooltip.formatter = "{b}:{c}万({d}%)")
     })
     output$data_funnel <- renderEplot({
       Eplot(type="funnel",data=data_funnel)
