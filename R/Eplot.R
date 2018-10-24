@@ -9,6 +9,7 @@ Eplot <- function(data,type,title=NULL,
                   width=NULL,height=NULL,
                   tooltip.trigger='item',
                   tooltip.formatter=NULL,
+                  toolbox=TRUE,
                   series_rectangular_itemStyle=FALSE,# 是否在图形上显示数据
                   series_rectangular_position=NULL,# 图形上显示数据的位置，/inside、top、bottom、left，right
                   legend_show=NULL,
@@ -49,13 +50,15 @@ Eplot <- function(data,type,title=NULL,
       }
       names(x$legend$selected) <- colnames(data)
     }
-    x$toolbox <- list(show=unbox(TRUE),
-                      orient=unbox("vertical"),
-                      feature=list(
-                        restore=list(show=unbox(TRUE)),
-                        magicType=list(show=unbox(TRUE),type=c('line', 'bar')),
-                        saveAsImage=list(show=unbox(TRUE))
-                      ))
+    if(toolbox){
+      x$toolbox <- list(show=unbox(TRUE),
+                        orient=unbox("vertical"),
+                        feature=list(
+                          restore=list(show=unbox(TRUE)),
+                          magicType=list(show=unbox(TRUE),type=c('line', 'bar')),
+                          saveAsImage=list(show=unbox(TRUE))
+                        ))
+    }
     x$xAxis <- list(list(type=unbox("category"),
                          boundaryGap=unbox('false'),
                          position=unbox("bottom"),
@@ -77,32 +80,38 @@ Eplot <- function(data,type,title=NULL,
                                    position=series_rectangular_position)
   }else if(type[1]=="pie"){
     x$series <- series_pie(data)
-    x$toolbox <- list(show=unbox(TRUE),
-                      orient=unbox("vertical"),
-                      feature=list(
-                        restore=list(show=unbox(TRUE)),
-                        saveAsImage=list(show=unbox(TRUE))
-                      ))
+    if(toolbox){
+      x$toolbox <- list(show=unbox(TRUE),
+                        orient=unbox("vertical"),
+                        feature=list(
+                          restore=list(show=unbox(TRUE)),
+                          saveAsImage=list(show=unbox(TRUE))
+                        ))
+    }
   }else if(type[1]=="funnel"){
     x$series <- series_funnel(data)
-    x$toolbox <- list(show=unbox(TRUE),
-                      orient=unbox("vertical"),
-                      feature=list(
-                        restore=list(show=unbox(TRUE)),
-                        saveAsImage=list(show=unbox(TRUE))
-                      ))
+   if(toolbox){
+     x$toolbox <- list(show=unbox(TRUE),
+                       orient=unbox("vertical"),
+                       feature=list(
+                         restore=list(show=unbox(TRUE)),
+                         saveAsImage=list(show=unbox(TRUE))
+                       ))
+   }
   }else if(type[1]=="map"){
     x$visualMap <- list(show=unbox(visualMap_show),
                         min=unbox(visualMap_min),max=unbox(visualMap_max),
                         left=unbox('left'),top=unbox('bottom'),
                         text=c("max","min"),calculable=unbox(TRUE))
     x$series <- series_map(data=data,mapType=mapType)
-    x$toolbox <- list(show=unbox(TRUE),
-                      orient=unbox("vertical"),
-                      feature=list(
-                        restore=list(show=unbox(TRUE)),
-                        saveAsImage=list(show=unbox(TRUE))
-                      ))
+    if(toolbox){
+      x$toolbox <- list(show=unbox(TRUE),
+                        orient=unbox("vertical"),
+                        feature=list(
+                          restore=list(show=unbox(TRUE)),
+                          saveAsImage=list(show=unbox(TRUE))
+                        ))
+    }
   }else if(type[1]=="scatter"){
     x$series <- series_scatter(data,mapType="scatter")
     x$xAxis <- list(type=unbox('value'),splitLine=list(show=unbox(FALSE)))
