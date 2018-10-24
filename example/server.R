@@ -30,6 +30,7 @@ shinyServer(
             title="折线图",
             xAxisAll = TRUE,
             yAxisMin=10,
+            toolbox = FALSE,
             tooltip.trigger = 'axis',
             legend_show=c("最高","最低"), #  是否只显示指定的几条折线
             series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
@@ -37,7 +38,9 @@ shinyServer(
     })
 
     output$data_line_bar_2 <- renderEplot({
-      Eplot(type="bar",data=data_line_bar,
+      Eplot(data=data_line_bar,
+            type="bar",
+            yAxis.show=FALSE,
             yAxisName=c('金额万','金额元'), # y轴的名称
             yAxisIndex=c(0,1,1), # 0为左侧坐标轴，1为右侧
             series_rectangular_itemStyle=TRUE,

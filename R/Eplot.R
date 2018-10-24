@@ -14,6 +14,7 @@ Eplot <- function(data,type,title=NULL,
                   series_rectangular_position=NULL,# 图形上显示数据的位置，/inside、top、bottom、left，right
                   legend_show=NULL,
                   xAxisAll=FALSE, # 是否在 X 轴显示所有名称
+                  yAxis.show=TRUE,
                   yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,
                   mapType, # 地图，地区
@@ -69,7 +70,7 @@ Eplot <- function(data,type,title=NULL,
     }
     x$yAxis <- as.list(yAxisName)
     for(i in  seq(length(yAxisName))){
-      x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]))
+      x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]),show=unbox(yAxis.show))
     }
     if(!is.null(yAxisMin)){
       x$yAxis$min <- unbox(yAxisMin)
