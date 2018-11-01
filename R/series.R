@@ -15,7 +15,8 @@ series_rectangular <- function(data,type,stack,areaStyle,yAxisIndex,itemStyle=FA
                       stack=unbox(stack[i]),
                       yAxisIndex=unbox(yAxisIndex[i]),
                       data=data[[i]],
-                      itemStyle=list(normal=list(label=list(show=unbox(itemStyle),formatter=unbox('{c}')))))
+                      label=list(show=unbox(itemStyle),formatter=unbox('{c}')),
+                      showAllSymbol=unbox(FALSE))
     if(!is.null(position)){data[[i]]$itemStyle$normal$label$position <- unbox(position)}
     if(areaStyle){data[[i]]$areaStyle <- list()}
   }
