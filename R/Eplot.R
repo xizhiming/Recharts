@@ -5,7 +5,9 @@
 #' @import htmlwidgets
 #'
 #' @export
-Eplot <- function(data,type,title=NULL,
+Eplot <- function(data,
+                  type,
+                  title=NULL,
                   width=NULL,height=NULL,
                   tooltip.trigger='item',
                   tooltip.formatter=NULL,
@@ -15,7 +17,10 @@ Eplot <- function(data,type,title=NULL,
                   legend_show=NULL,
                   xAxisAll=FALSE, # 是否在 X 轴显示所有名称
                   yAxis.show=TRUE,
-                  yAxisName='',yAxisMin=NULL,yAxisIndex=0,stack=NULL,
+                  yAxisName='',yAxisMin=NULL,
+                  yAxisIndex=0,
+                  stack=NULL,
+                  areaStyle=FALSE, # 是否为面积图，面积图的前提是堆叠折线图
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,
                   mapType, # 地图，地区
                   scatter_x=NULL,scatter_y=NULL # 散点图的 x轴、y 轴名字
@@ -75,7 +80,9 @@ Eplot <- function(data,type,title=NULL,
     if(!is.null(yAxisMin)){
       x$yAxis$min <- unbox(yAxisMin)
     }
-    x$series <- series_rectangular(data,type=type,stack=stack,
+    x$series <- series_rectangular(data,type=type,
+                                   stack=stack,
+                                   areaStyle=areaStyle,
                                    yAxisIndex=yAxisIndex,
                                    itemStyle=series_rectangular_itemStyle,
                                    position=series_rectangular_position)

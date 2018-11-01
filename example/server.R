@@ -29,12 +29,26 @@ shinyServer(
       Eplot(type="line",data=data_line_bar,
             title="折线图",
             xAxisAll = TRUE,
-            yAxisMin=10,
+            yAxisMin=0,
             toolbox = FALSE,
             tooltip.trigger = 'axis',
             legend_show=c("最高","最低"), #  是否只显示指定的几条折线
             series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
             )
+    })
+
+    output$data_line_area <- renderEplot({
+      Eplot(type="line",data=data_line_bar,
+            title="折线图",
+            xAxisAll = TRUE,
+            yAxisMin=0,
+            toolbox = FALSE,
+            stack = "总量",
+            areaStyle = TRUE,
+            tooltip.trigger = 'axis',
+            legend_show=c("最高","最低"), #  是否只显示指定的几条折线
+            series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
+      )
     })
 
     output$data_line_bar_2 <- renderEplot({

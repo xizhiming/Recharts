@@ -1,5 +1,5 @@
 #折线图、柱状图
-series_rectangular <- function(data,type,stack,yAxisIndex,itemStyle=FALSE,position){
+series_rectangular <- function(data,type,stack,areaStyle,yAxisIndex,itemStyle=FALSE,position){
   list_name <- colnames(data)
   colnames(data) <- NULL
   data <- as.list(data)
@@ -16,9 +16,8 @@ series_rectangular <- function(data,type,stack,yAxisIndex,itemStyle=FALSE,positi
                       yAxisIndex=unbox(yAxisIndex[i]),
                       data=data[[i]],
                       itemStyle=list(normal=list(label=list(show=unbox(itemStyle),formatter=unbox('{c}')))))
-    if(!is.null(position)){
-      data[[i]]$itemStyle$normal$label$position <- unbox(position)
-    }
+    if(!is.null(position)){data[[i]]$itemStyle$normal$label$position <- unbox(position)}
+    if(areaStyle){data[[i]]$areaStyle <- list()}
   }
 
   return(data)
