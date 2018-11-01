@@ -42,7 +42,7 @@ series_map <- function(data,mapType,itemStyle.normal=FALSE,itemStyle.emphasis=FA
     data[[i]] <- list(name=unbox(list_name[i]),value=data[[i]])
   }
   data <- list(list(type=unbox('map'),mapType=unbox(mapType),data=data,
-                    itemStyle=list(normal=list(label=list(show=unbox(itemStyle.normal))),
+                    itemStyle=list(normal=list(label=list(show=unbox(itemStyle.normal)),borderWidth=unbox(0)),
                                    emphasis=list(label=list(show=unbox(itemStyle.emphasis)))
                     )))
   return(data)
