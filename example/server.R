@@ -4,7 +4,7 @@ shinyServer(
   function(input,output,session){
     data_line_bar <- data.frame('最高'=c(35,45,40,35,55,35,45,40,35,55),
                                 '中间'=c(2.5,3.5,3.0,2.5,4.5,2.5,3.5,3.0,2.5,4.5),
-                                '最低'=c(-1.5,2.5,2.0,1.5,3.5,1.5,2.5,2.0,1.5,3.5))
+                                '最低'=c(1.5,2.5,2.0,1.5,3.5,1.5,2.5,2.0,1.5,3.5))
     row.names(data_line_bar) <- c('3-13-13-13-1','3-23-23-2','3-3','3-4','3-5','3-6','3-7','3-8','3-9','3-10')
 
     data_line_bar_2 <- data.frame('最高'=c(-35,45,40,35,55))
@@ -26,13 +26,14 @@ shinyServer(
     data_scatter <- data.frame(a=c(100,89,110,90,150),b=c(0.1,0.2,0.15,0.3,0.4),c=c("a","b","c","d","e"))
 
     output$data_line_bar_1 <- renderEplot({
+      state <- input$state
+      data_line_bar <- data_line_bar[,match(state,colnames(data_line_bar))]
       Eplot(type="line",data=data_line_bar,
             title="折线图",
             xAxisAll = TRUE,
             yAxisMin=0,
             toolbox = FALSE,
             tooltip.trigger = 'axis',
-            legend_show=c("最高","最低"), #  是否只显示指定的几条折线
             series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
             )
     })
@@ -52,13 +53,15 @@ shinyServer(
     })
 
     output$data_line_bar_2 <- renderEplot({
+      # state <- c('最高','中间','最低')
+      state <- input$state
+      data_line_bar <- data_line_bar[,match(state,colnames(data_line_bar))]
       Eplot(data=data_line_bar,
             type="bar",
-            yAxis.show=FALSE,
-            yAxisName=c('金额万','金额元'), # y轴的名称
-            yAxisIndex=c(0,1,1), # 0为左侧坐标轴，1为右侧
+            yAxisName='金额', # y轴的名称
+            yAxisIndex=0, # 0为左侧坐标轴，1为右侧
             series_rectangular_itemStyle=TRUE,
-            stack=c('1','test','test'), # 是否使用堆积图，名字相同的堆积在一起
+            stack=c('test','test','test'), # 是否使用堆积图，名字相同的堆积在一起
             title="堆积柱形图",
             tooltip.trigger = 'axis')
     })

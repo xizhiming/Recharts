@@ -2,6 +2,7 @@ library(shinydashboard)
 library(Recharts)
 body <- dashboardBody(
   fluidRow(
+    selectInput("state", "Choose a state:",c('最高','中间','最低'),multiple=TRUE,selected = c('最高','中间') ),
     column(6,EplotOutput("data_line_bar_1")),
     column(6,EplotOutput("data_line_bar_2")),
     column(6,EplotOutput("data_line_bar_3"))
