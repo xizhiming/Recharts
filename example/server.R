@@ -49,6 +49,7 @@ shinyServer(
             yAxisName='金额', # y轴的名称
             yAxisIndex=0, # 0为左侧坐标轴，1为右侧
             series_rectangular_itemStyle=TRUE,
+            x_y_transform=TRUE,
             stack=c('test','test','test'), # 是否使用堆积图，名字相同的堆积在一起
             tooltip.trigger = 'axis')
     })
