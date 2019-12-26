@@ -33,14 +33,36 @@ shinyServer(
             xAxisAll = TRUE,
             yAxisMin=0,
             toolbox = FALSE,
+            x_y_transform=TRUE,
             tooltip.trigger = 'axis',
             series_rectangular_itemStyle=TRUE # 是否在折线上显示数据
-            )
+      )
+    })
+
+    output$data_line_bar_2 <- renderEplot({
+      # state <- c('最高','中间','最低')
+      state <- input$state
+      data_line_bar <- data_line_bar[,match(state,colnames(data_line_bar))]
+      Eplot(data=data_line_bar,
+            title="堆积柱形图",
+            type="bar",
+            yAxisName='金额', # y轴的名称
+            yAxisIndex=0, # 0为左侧坐标轴，1为右侧
+            series_rectangular_itemStyle=TRUE,
+            stack=c('test','test','test'), # 是否使用堆积图，名字相同的堆积在一起
+            tooltip.trigger = 'axis')
+    })
+
+    output$data_line_bar_3 <- renderEplot({
+      Eplot(title="柱形图",type="bar",data=data_line_bar_2,yAxisMin=20,
+            series_rectangular_itemStyle=TRUE,
+            series_rectangular_position='top'
+      )
     })
 
     output$data_line_area <- renderEplot({
       Eplot(type="line",data=data_line_bar,
-            title="折线图",
+            title="面积图",
             xAxisAll = TRUE,
             yAxisMin=0,
             toolbox = FALSE,
@@ -52,45 +74,25 @@ shinyServer(
       )
     })
 
-    output$data_line_bar_2 <- renderEplot({
-      # state <- c('最高','中间','最低')
-      state <- input$state
-      data_line_bar <- data_line_bar[,match(state,colnames(data_line_bar))]
-      Eplot(data=data_line_bar,
-            type="bar",
-            yAxisName='金额', # y轴的名称
-            yAxisIndex=0, # 0为左侧坐标轴，1为右侧
-            series_rectangular_itemStyle=TRUE,
-            stack=c('test','test','test'), # 是否使用堆积图，名字相同的堆积在一起
-            title="堆积柱形图",
-            tooltip.trigger = 'axis')
-    })
-
-    output$data_line_bar_3 <- renderEplot({
-      Eplot(title="柱形图",type="bar",data=data_line_bar_2,yAxisMin=20,
-            series_rectangular_itemStyle=TRUE,
-            series_rectangular_position='top'
-            )
-    })
     output$data_pie <- renderEplot({
       Eplot(title="饼图",type="pie",data=data_pie,tooltip.formatter = "{b}:{c}万({d}%)")
     })
     output$data_funnel <- renderEplot({
-      Eplot(type="funnel",data=data_funnel)
+      Eplot(type="funnel",title="漏斗图",data=data_funnel)
     })
 
     output$data_map_china <- renderEplot({
-      Eplot(type="map",data=data_map_china,
+      Eplot(title="中国地图",type="map",data=data_map_china,
             mapType="china",visualMap_max=40
       )
     })
     output$data_map_BJ <- renderEplot({
-      Eplot(type="map",data=data_map_BJ,
+      Eplot(title="上海地图",type="map",data=data_map_BJ,
             mapType="上海",visualMap_max=150
       )
     })
 
     output$data_map_scatter <- renderEplot({
-      Eplot(type="scatter",data=data_scatter,scatter_x = "x轴",scatter_y = "y轴")
+      Eplot(title="散点图",type="scatter",data=data_scatter,scatter_x = "x轴",scatter_y = "y轴")
     })
   })

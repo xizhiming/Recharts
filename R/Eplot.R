@@ -8,7 +8,8 @@
 Eplot <- function(data,
                   type,
                   title=NULL,
-                  width=NULL,height=NULL,
+                  width=NULL,
+                  height=NULL,
                   tooltip.trigger='item',
                   tooltip.formatter=NULL,
                   toolbox=TRUE,
@@ -17,8 +18,10 @@ Eplot <- function(data,
                   legend_show=NULL,
                   xAxisAll=FALSE, # 是否在 X 轴显示所有名称
                   yAxis.show=TRUE,
-                  yAxisName='',yAxisMin=NULL,
+                  yAxisName='',
+                  yAxisMin=NULL,
                   yAxisIndex=0,
+                  x_y_transform=FALSE,# x,y轴是否互换。TRUE时也就是互换后，柱状图改为条形图
                   stack=NULL,
                   areaStyle=FALSE, # 是否为面积图，面积图的前提是堆叠折线图
                   visualMap_show=FALSE,visualMap_min=0,visualMap_max,
@@ -56,6 +59,7 @@ Eplot <- function(data,
       }
       names(x$legend$selected) <- colnames(data)
     }
+    # 右边栏工具箱，折线图柱状图转换/保存图片
     if(toolbox){
       x$toolbox <- list(show=unbox(TRUE),
                         orient=unbox("vertical"),
@@ -65,21 +69,47 @@ Eplot <- function(data,
                           saveAsImage=list(show=unbox(TRUE))
                         ))
     }
-    x$xAxis <- list(list(type=unbox("category"),
-                         boundaryGap=unbox('false'),
-                         position=unbox("bottom"),
-                         data=row.names(data))
+
+    xAxis_trans <- list(list(type=unbox("category"),
+                             boundaryGap=unbox('false'),
+                             position=unbox("bottom"),
+                             data=row.names(data))
     )
     if(xAxisAll==TRUE){
-      x$xAxis[[1]]$axisLabel <- list(interval=0,rotate=25,minInterval=1)
+      xAxis_trans[[1]]$axisLabel <- list(interval=0,rotate=25,minInterval=1)
     }
-    x$yAxis <- as.list(yAxisName)
+    yAxis_trans <- as.list(yAxisName)
     for(i in  seq(length(yAxisName))){
-      x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]),show=unbox(yAxis.show))
+      yAxis_trans[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]),show=unbox(yAxis.show))
     }
     if(!is.null(yAxisMin)){
-      x$yAxis$min <- unbox(yAxisMin)
+      yAxis_trans$min <- unbox(yAxisMin)
     }
+    if(x_y_transform==FALSE){
+      x$xAxis <- xAxis_trans
+      x$yAxis <- yAxis_trans
+    }else if(x_y_transform==TRUE){
+      x$xAxis <- yAxis_trans
+      x$yAxis <- xAxis_trans
+    }
+
+    # x$xAxis <- list(list(type=unbox("category"),
+    #                      boundaryGap=unbox('false'),
+    #                      position=unbox("bottom"),
+    #                      data=row.names(data))
+    # )
+    # if(xAxisAll==TRUE){
+    #   x$xAxis[[1]]$axisLabel <- list(interval=0,rotate=25,minInterval=1)
+    # }
+    # x$yAxis <- as.list(yAxisName)
+    # for(i in  seq(length(yAxisName))){
+    #   x$yAxis[[i]] <- list(type=unbox("value"),name=unbox(yAxisName[i]),show=unbox(yAxis.show))
+    # }
+    # if(!is.null(yAxisMin)){
+    #   x$yAxis$min <- unbox(yAxisMin)
+    # }
+
+
     x$series <- series_rectangular(data,type=type,
                                    stack=stack,
                                    areaStyle=areaStyle,
@@ -98,14 +128,14 @@ Eplot <- function(data,
     }
   }else if(type[1]=="funnel"){
     x$series <- series_funnel(data)
-   if(toolbox){
-     x$toolbox <- list(show=unbox(TRUE),
-                       orient=unbox("vertical"),
-                       feature=list(
-                         restore=list(show=unbox(TRUE)),
-                         saveAsImage=list(show=unbox(TRUE))
-                       ))
-   }
+    if(toolbox){
+      x$toolbox <- list(show=unbox(TRUE),
+                        orient=unbox("vertical"),
+                        feature=list(
+                          restore=list(show=unbox(TRUE)),
+                          saveAsImage=list(show=unbox(TRUE))
+                        ))
+    }
   }else if(type[1]=="map"){
     x$visualMap <- list(show=unbox(visualMap_show),
                         min=unbox(visualMap_min),max=unbox(visualMap_max),
