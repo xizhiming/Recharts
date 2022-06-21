@@ -32,7 +32,7 @@ Eplot <- function(data,
   if(!is.null(title)){
     x$title <- list(text=title,x=unbox('center'),y=unbox('-5'))
   }
-  if(type != 'scatter'){
+  if(type[1] != 'scatter'){
     x$tooltip <- list(show=unbox(TRUE),trigger=unbox(tooltip.trigger))
     if(!is.null(tooltip.formatter)){
       x$tooltip$formatter <- unbox(tooltip.formatter)
